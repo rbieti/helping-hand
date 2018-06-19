@@ -4,6 +4,7 @@ import { TabNavigator, StackNavigator, DrawerNavigator, DrawerItems } from 'reac
 import { Icon, Divider } from 'react-native-elements';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
+import { Font } from 'expo';
 
 import store from './src/store';
 import HomeScreen from './src/screens/HomeScreen';
@@ -22,6 +23,9 @@ export default class App extends React.Component {
 	// https://github.com/firebase/firebase-js-sdk/issues/97
 	constructor() {
 		super();
+		this.state = {
+			fontLoaded: false
+		};
 		console.ignoredYellowBox = ['Setting a timer'];
 	}
 	//////////////////////////////////////////////////////////////////////////////
@@ -36,9 +40,21 @@ export default class App extends React.Component {
 		//firebase.auth().signOut();
 	}
 
+	async componentDidMount() {
+		await Font.loadAsync({
+			'Roboto_medium': require('./node_modules/native-base/Fonts/Roboto_medium.ttf'),
+		});
+
+		this.setState({ fontLoaded: true });
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 	// Main render method
 	render() {
+		if (!this.state.fontLoaded) {
+			return null;
+		}
+
 		//////////////////////////////////////////////////////////////////////////////
 		// Inner StackNavigator for search results
 		const HomeScene = TabNavigator(
