@@ -182,8 +182,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		//alignItems: 'center',
 		justifyContent: 'center',
-		marginTop: 30,
-		// marginTop: Platform.OS === "android" ? 24 : 0,
-		marginBottom: 20
+		marginTop: Platform.OS === "android" ? 24 : 30,
+		marginBottom: Platform.OS === "android" ? 0 : 20
 	}
 });
